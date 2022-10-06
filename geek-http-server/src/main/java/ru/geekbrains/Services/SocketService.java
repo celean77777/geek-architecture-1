@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SocketService implements Closeable {
@@ -14,14 +16,14 @@ public class SocketService implements Closeable {
     private final Socket socket;
     private static final Logger logger = new ConsoleLogger();
 
-    public List<String> readRequest() {
+    public Deque<String> readRequest() {
         try {
             BufferedReader input = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream(), StandardCharsets.UTF_8));
             while (!input.ready());
 
-            List<String> request = new ArrayList<>();
+            Deque<String> request = new LinkedList<>();
             while (input.ready()){
                 String line = input.readLine();
                 logger.info(line);
@@ -34,13 +36,10 @@ public class SocketService implements Closeable {
 
     }
 
-    public void writeResponse(String headers, BufferedReader reader){
+    public void writeResponse(String headers){
         try {
             PrintWriter output = new PrintWriter(socket.getOutputStream());
             output.print(headers);
-            if (reader != null) {
-                reader.transferTo(output);
-            }
             output.flush();
         }catch (IOException e){
             throw new IllegalStateException(e);
