@@ -4,6 +4,8 @@ import ru.geekbrains.Hendlers.RequestHandler;
 import ru.geekbrains.Loggers.ConsoleLogger;
 import ru.geekbrains.Loggers.Logger;
 import ru.geekbrains.Services.SocketService;
+import ru.geekbrains.parsers.Parser;
+import ru.geekbrains.serializers.Serializer;
 
 
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class HttpServer {
             while (true) {
                 Socket socket = serverSocket.accept();
                 logger.info("New client connected!");
-                new Thread(new RequestHandler(new SocketService(socket))).start();
+                new Thread(new RequestHandler(new SocketService(socket), new Parser(), new Serializer())).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
