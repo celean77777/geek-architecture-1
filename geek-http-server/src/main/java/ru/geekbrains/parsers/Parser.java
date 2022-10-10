@@ -28,7 +28,13 @@ public class Parser implements RequestParser {
             body.append(rawRequest.pollFirst());
         }
 
-        return new HttpRequest(method, path, protocol, headers, body.toString());
+        return HttpRequest.createBuilder()
+                .withMethod(method)
+                .withPath(path)
+                .withProtocol(protocol)
+                .withHeaders(headers)
+                .withBody(body.toString())
+                .build();
 
     }
 
