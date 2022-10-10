@@ -3,73 +3,77 @@ package ru.geekbrains.domain;
 import java.nio.file.Path;
 
 public class HttpResponse {
-
     private String protocol;
-
     private int statusCode;
-
     private String statement;
-
     private String contentType;
-
     private String body;
 
-    public HttpResponse(String protocol, int statusCode, String statement, String contentType){
-        this.protocol = protocol;
-        this.statement = statement;
-        this.statusCode = statusCode;
-        this.contentType = contentType;
-        this.body = "<h1>Файл не найден!</h1>";
+    private HttpResponse(){
+
     }
-
-    public HttpResponse(String protocol, int statusCode, String statement, String contentType, String body){
-        this.protocol = protocol;
-        this.statement = statement;
-        this.statusCode = statusCode;
-        this.contentType = contentType;
-        this.body = body;
-    }
-
-
-
 
     public String getStatement() {
         return statement;
-    }
-
-    public void setStatement(String statement) {
-        this.statement = statement;
     }
 
     public int getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
     public String getContentType() {
         return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
     }
 
     public String getProtocol() {
         return protocol;
     }
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
     public String getBody() {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public static Builder createBuilder(){
+        return new Builder();
     }
+
+    public static class Builder{
+        private final HttpResponse httpResponse;
+
+        private Builder(){
+            this.httpResponse = new HttpResponse();
+        }
+
+        public Builder withProtocol(String protocol){
+            this.httpResponse.protocol = protocol;
+            return this;
+        }
+
+        public Builder withStatusCode(int statusCode){
+            this.httpResponse.statusCode = statusCode;
+            return this;
+        }
+
+        public Builder withStatement(String statement){
+            this.httpResponse.statement = statement;
+            return this;
+        }
+
+        public Builder withContentType(String contentType){
+            this.httpResponse.contentType = contentType;
+            return this;
+        }
+
+        public Builder withBody(String body){
+            this.httpResponse.body = body;
+            return this;
+        }
+
+        public HttpResponse build(){
+            return this.httpResponse;
+        }
+
+
+    }
+
 }

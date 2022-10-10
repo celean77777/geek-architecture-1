@@ -46,9 +46,14 @@ public class SocketService implements Closeable {
         }
     }
 
-    public SocketService(Socket socket) {
+    private SocketService(Socket socket) {
         this.socket = socket;
     }
+
+    public static SocketService createSocketService(Socket socket){
+        return new SocketService(socket);
+    }
+
 
     @Override
     public void close() throws IOException {
