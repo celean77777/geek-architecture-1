@@ -1,6 +1,5 @@
 package ru.geekbrains.domain;
 
-import java.nio.file.Path;
 
 public class HttpResponse {
     private String protocol;

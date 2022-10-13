@@ -3,13 +3,11 @@ package ru.geekbrains;
 import ru.geekbrains.Hendlers.RequestHandler;
 import ru.geekbrains.Loggers.ConsoleLogger;
 import ru.geekbrains.Loggers.Logger;
-import ru.geekbrains.Services.SocketService;
+import ru.geekbrains.Services.SocketServiceFactory;
 import ru.geekbrains.config.Config;
 import ru.geekbrains.config.ConfigFactory;
-import ru.geekbrains.parsers.Parser;
-import ru.geekbrains.serializers.Serializer;
-
-
+import ru.geekbrains.parsers.RequestParserFactory;
+import ru.geekbrains.serializers.ResponseSerializerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,8 +24,10 @@ public class HttpServer {
             while (true) {
                 Socket socket = serverSocket.accept();
                 logger.info("New client connected!");
-                new Thread(new RequestHandler(SocketService.createSocketService(socket),
-                        new Parser(), new Serializer(), config)).start();
+                new Thread(new RequestHandler(SocketServiceFactory.createSocketService(socket)
+                        , RequestParserFactory.createRequestParser()
+                        , ResponseSerializerFactory.createResponseSerializer()
+                        , config)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@ package ru.geekbrains.serializers;
 
 import ru.geekbrains.domain.HttpResponse;
 
-public class Serializer implements ResponseSerializer{
+class SerializerImpl implements ResponseSerializer{
     @Override
     public String serialize(HttpResponse httpResponse){
         StringBuilder response = new StringBuilder();
