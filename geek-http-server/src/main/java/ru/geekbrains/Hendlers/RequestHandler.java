@@ -6,8 +6,8 @@ import ru.geekbrains.Services.SocketService;
 import ru.geekbrains.config.Config;
 import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
-import ru.geekbrains.parsers.Parser;
-import ru.geekbrains.serializers.Serializer;
+import ru.geekbrains.parsers.RequestParser;
+import ru.geekbrains.serializers.ResponseSerializer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -19,11 +19,11 @@ public class RequestHandler implements Runnable {
 
     private static final Logger logger = new ConsoleLogger();
     private final SocketService socketService;
-    private final Parser parser;
-    private final Serializer serializer;
+    private final RequestParser parser;
+    private final ResponseSerializer serializer;
     private final Config config;
 
-    public RequestHandler(SocketService socketService, Parser parser, Serializer serializer, Config config) {
+    public RequestHandler(SocketService socketService, RequestParser parser, ResponseSerializer serializer, Config config) {
         this.socketService = socketService;
         this.parser = parser;
         this.serializer = serializer;
@@ -45,6 +45,7 @@ public class RequestHandler implements Runnable {
                         .withStatusCode(404)
                         .withStatement( "NOT_FOUND")
                         .withContentType("Content-Type: text/html; charset=utf-8")
+                        .withBody("File not found!")
                         .build();
                socketService.writeResponse(serializer.serialize(httpResponse));
             }else {
