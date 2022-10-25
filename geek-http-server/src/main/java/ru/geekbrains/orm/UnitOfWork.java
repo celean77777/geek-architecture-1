@@ -1,18 +1,17 @@
 package ru.geekbrains.orm;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UnitOfWork {
-    private final Connection connection;
+    private final ProductMapper productMapper;
 
     private final List<Product> newProducts = new ArrayList<>();
     private final List<Product> updateProducts = new ArrayList<>();
     private final List<Product> deleteProducts = new ArrayList<>();
 
-    public UnitOfWork(Connection connection) {
-        this.connection = connection;
+    public UnitOfWork(ProductMapper productMapper) {
+        this.productMapper = productMapper;
     }
 
     public void registerNew(Product product){
@@ -31,18 +30,25 @@ public class UnitOfWork {
         insert();
         update();
         delete();
+        clear();
     }
 
     public void insert(){
-
+        this.newProducts.forEach(productMapper::insert);
     }
 
     public void update(){
-
+        this.updateProducts.forEach(productMapper::update);
     }
 
     public void delete(){
+        this.deleteProducts.forEach(productMapper::delete);
+    }
 
+    public void clear(){
+        this.deleteProducts.clear();
+        this.updateProducts.clear();
+        this.newProducts.clear();
     }
 
 
