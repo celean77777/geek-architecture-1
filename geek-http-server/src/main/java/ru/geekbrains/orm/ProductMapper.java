@@ -40,4 +40,16 @@ public class ProductMapper {
         return Optional.empty();
 
     }
+
+    public void update(Product product){
+
+    }
+
+    public void insert(Product product){
+
+    }
+
+    public void delete(Product product){
+
+    }
 }
