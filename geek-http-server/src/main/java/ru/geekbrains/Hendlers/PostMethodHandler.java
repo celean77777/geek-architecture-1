@@ -6,8 +6,10 @@ import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
 import ru.geekbrains.serializers.ResponseSerializer;
 
-public class PostMethodHandler extends MethodHandler{
+import java.lang.annotation.Retention;
 
+@Handler(order = 1, method = "POST")
+public class PostMethodHandler extends MethodHandler{
 
         public PostMethodHandler(String method, MethodHandler next, SocketService socketService,
                                 ResponseSerializer serializer, Config config) {
