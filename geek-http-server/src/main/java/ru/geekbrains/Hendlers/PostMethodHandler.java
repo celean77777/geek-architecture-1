@@ -11,7 +11,6 @@ import java.lang.annotation.Retention;
 @Handler(order = 1, method = "POST")
 public class PostMethodHandler extends MethodHandler{
 
-
         public PostMethodHandler(String method, MethodHandler next, SocketService socketService,
                                 ResponseSerializer serializer, Config config) {
             super(method, next, socketService, serializer, config);

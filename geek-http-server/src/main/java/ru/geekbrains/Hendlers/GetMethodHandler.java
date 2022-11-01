@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Handler(order = 0, method = "GET")
+
 public class GetMethodHandler extends MethodHandler{
 
     public GetMethodHandler(String method, MethodHandler next, SocketService socketService,
